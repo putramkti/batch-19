@@ -12,6 +12,10 @@ if (int.TryParse(input, out int n) && n > 0)
         {
             value += "foo";
         }
+        if (i % 4 == 0)
+        {
+            value += "baz";
+        }
         if (i % 5 == 0)
         {
             value += "bar";
@@ -19,6 +23,10 @@ if (int.TryParse(input, out int n) && n > 0)
         if (i % 7 == 0)
         {
             value += "jazz";
+        }
+        if( i % 9 == 0)
+        {
+            value += "huzz";
         }
         if (string.IsNullOrEmpty(value))
         {

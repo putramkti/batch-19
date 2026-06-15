@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Delegates", "AdvancedC#\Del
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventHandler", "AdvancedC#\EventHandler\EventHandler.csproj", "{C9858482-7578-48D9-BCAC-99538F207873}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryStatementsAndExceptions", "AdvancedC#\TryStatementsAndExceptions\TryStatementsAndExceptions.csproj", "{90506940-855B-42CB-82BA-EC27161AF987}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,18 @@ Global
 		{C9858482-7578-48D9-BCAC-99538F207873}.Release|x64.Build.0 = Release|Any CPU
 		{C9858482-7578-48D9-BCAC-99538F207873}.Release|x86.ActiveCfg = Release|Any CPU
 		{C9858482-7578-48D9-BCAC-99538F207873}.Release|x86.Build.0 = Release|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Debug|x64.Build.0 = Debug|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Debug|x86.Build.0 = Debug|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Release|x64.ActiveCfg = Release|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Release|x64.Build.0 = Release|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Release|x86.ActiveCfg = Release|Any CPU
+		{90506940-855B-42CB-82BA-EC27161AF987}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,5 +120,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{80FF269E-9B86-4A4A-8CFD-45D153FB5359} = {9FD79B0D-ABBA-4474-1CA5-33925866ED11}
 		{C9858482-7578-48D9-BCAC-99538F207873} = {9FD79B0D-ABBA-4474-1CA5-33925866ED11}
+		{90506940-855B-42CB-82BA-EC27161AF987} = {9FD79B0D-ABBA-4474-1CA5-33925866ED11}
 	EndGlobalSection
 EndGlobal

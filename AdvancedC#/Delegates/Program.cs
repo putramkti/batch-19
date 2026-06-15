@@ -1,11 +1,35 @@
-﻿SomeDelegate d = SomeMethod1;
-d += SomeMethod2;
-// d = SomeMethod2;
-d();
-void SomeMethod1() { Console.WriteLine("Method 1"); }
-void SomeMethod2() { Console.WriteLine("Method 2"); }
-delegate void SomeDelegate();
+﻿// SomeDelegate d = SomeMethod1;
+// d += SomeMethod2;
+// // d = SomeMethod2; // replace delegate d with SomeMethod2 (not error)
+// // d();
+// d.Invoke();
+// void SomeMethod1() { Console.WriteLine("Method 1"); }
+// void SomeMethod2() { Console.WriteLine("Method 2"); }
+// delegate void SomeDelegate();
 
+// =====================================================================
+
+int[] values = { 1, 2, 3 };
+
+Transformer t = Square;
+t+= Cube;
+
+// Transform(values, Square); 
+Transform(values, t);
+foreach (int i in values)
+    Console.Write(i + "  "); 
+
+int Square(int x) => x * x;
+int Cube(int x) => x * x * x;
+
+void Transform(int[] values, Transformer t) 
+{
+    for (int i = 0; i < values.Length; i++)
+        values[i] = t(values[i]); 
+}
+delegate int Transformer(int x);
+
+// ======================================================================
 
 // var sc = new SampleClass();
 
