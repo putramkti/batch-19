@@ -45,34 +45,36 @@ direction TB
     }
 
     class IDiscardPile {
-        +AddCard(ICard card) void
-        +ViewTopCard() ICard
-        +PopAllExceptTop() List~ICard~
+        +List~ICard~ Cards
+        %% +AddCard(ICard card) void
+        %% +ViewTopCard() ICard
+        %% +PopAllExceptTop() List~ICard~
     }
 
     class IDrawPile {
-        +DrawCard() ICard
-        +Shuffle() void
-        +IsEmpty() bool
-        +Refill(List~ICard~ newCards) void
+        +List~ICard~ Cards
+        %% +DrawCard() ICard
+        %% +Shuffle() void
+        %% +IsEmpty() bool
+        %% +Refill(List~ICard~ newCards) void
 
     }
 
     class DrawPile {
-	    -List~ICard~ _cards
+	    +List~ICard~ Cards
         +DrawPile(List~ICard~ cards)
-        +DrawCard() ICard
-        +Shuffle() void
-        +IsEmpty() bool
-        +Refill(List~ICard~ newCards) void
+        %% +DrawCard() ICard
+        %% +Shuffle() void
+        %% +IsEmpty() bool
+        %% +Refill(List~ICard~ newCards) void
     }
 
     class DiscardPile {
-	    -List~ICard~ _cards
+	    +List~ICard~ Cards
         +DiscardPile(ICard initialCard)
-        +AddCard(ICard card) void
-        +ViewTopCard() ICard
-        +PopAllExceptTop() List~ICard~
+        %% +AddCard(ICard card) void
+        %% +ViewTopCard() ICard
+        %% +PopAllExceptTop() List~ICard~
     }
 
     class IPlayer {
@@ -80,8 +82,8 @@ direction TB
         +int Score
         %% +IReadOnlyList~ICard~ Hand
         +List~ICard~ Hand
-        +AddToHand(ICard card) void
-        +RemoveFromHand(ICard card) void
+        %% +AddToHand(ICard card) void
+        %% +RemoveFromHand(ICard card) void
     }
 
     class Player {
@@ -90,8 +92,8 @@ direction TB
         %% +IReadOnlyList~ICard~ Hand
         +List~ICard~ Hand
         +Player(string name)
-        +AddToHand(ICard card) void
-        +RemoveFromHand(ICard card) void
+        %% +AddToHand(ICard card) void
+        %% +RemoveFromHand(ICard card) void
     }
     
     class GameController{
@@ -117,6 +119,8 @@ direction TB
         +CallUno(IPlayer player) void
         +CatchUnoViolation(IPlayer player) void
 
+        -Shuffle() void
+        -RefillDrawPile(List~ICard~ newCards) void
         -IsValidPlay(ICard card) bool
         -ApplyCardEffect(ICard card) void
         -NextTurn() void
@@ -154,13 +158,13 @@ direction TB
     %% IDrawPile -- IDiscard
     %% IDiscardPile *-- ICard
     
+    IDiscardPile o-- ICard
     DiscardPile ..|> IDiscardPile
-    DiscardPile o-- ICard
 
     %% DrawPile --> ICard
-    DrawPile o-- ICard
+    %% DrawPile o-- ICard
 
-    IDrawPile ..> ICard
+    IDrawPile o-- ICard
     
     DrawPile ..|> IDrawPile
 ```
