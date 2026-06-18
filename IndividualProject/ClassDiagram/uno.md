@@ -81,7 +81,7 @@ direction TB
         +string Name
         +int Score
         %% +IReadOnlyList~ICard~ Hand
-        +List~ICard~ Hand
+        %% +List~ICard~ Hand
         %% +AddToHand(ICard card) void
         %% +RemoveFromHand(ICard card) void
     }
@@ -90,7 +90,7 @@ direction TB
         +string Name
         +int Score
         %% +IReadOnlyList~ICard~ Hand
-        +List~ICard~ Hand
+        %% +List~ICard~ Hand
         +Player(string name)
         %% +AddToHand(ICard card) void
         %% +RemoveFromHand(ICard card) void
@@ -98,12 +98,13 @@ direction TB
     
     class GameController{
         +CardColor CurrentColor
+        -Dictionary~IPlayer, List< ICard>~ _hands
         -List~IPlayer~ _players
-        %% -Dictionary~IPlayer, List < ICard >~ _hands
         -GameDirection _direction
         -IDrawPile _drawPile
         -IDiscardPile _discardPile
         -int _currentPlayerIndex
+        -ICard? _drawnCardThisTurn
         -List~IPlayer~ _unoPendingPlayers
         +Action~IPlayer~ OnTurnStarted
         +Action~IPlayer, ICard~ OnCardPlayed
@@ -114,14 +115,21 @@ direction TB
 
         +GameController(List~IPlayer~ players, IDrawPile drawPile)
         +StartGame() void
+
         +PlayCard(IPlayer player, ICard card, CardColor? chosenColor) void
         +DrawCard(IPlayer player) void
         +CallUno(IPlayer player) void
-        +CatchUnoViolation(IPlayer player) void
+        +CatchUnoViolation(IPlayer player) bool
+        +PassTurn(IPlayer player) void
+
+        +GetCurrentPlayer() IPlayer
+        +GetTopDiscardCard() ICard
+        +GetPlayers() List~IPlayer~
+        +GetPlayerHand(IPlayer player) List~ICard~
+        +IsValidPlay(ICard card) bool
 
         -Shuffle() void
-        -RefillDrawPile(List~ICard~ newCards) void
-        -IsValidPlay(ICard card) bool
+        -RefillDrawPile() void
         -ApplyCardEffect(ICard card) void
         -NextTurn() void
         -ApplyUnoPenalty(IPlayer player) void
@@ -153,7 +161,7 @@ direction TB
     GameController ..> ICard
 
     Player ..|> IPlayer
-    IPlayer o-- ICard
+    %% IPlayer o-- ICard
     %% IDrawPile *-- ICard
     %% IDrawPile -- IDiscard
     %% IDiscardPile *-- ICard
