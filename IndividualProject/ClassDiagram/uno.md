@@ -46,54 +46,31 @@ direction TB
 
     class IDiscardPile {
         +List~ICard~ Cards
-        %% +AddCard(ICard card) void
-        %% +ViewTopCard() ICard
-        %% +PopAllExceptTop() List~ICard~
     }
 
     class IDrawPile {
         +List~ICard~ Cards
-        %% +DrawCard() ICard
-        %% +Shuffle() void
-        %% +IsEmpty() bool
-        %% +Refill(List~ICard~ newCards) void
-
     }
 
     class DrawPile {
 	    +List~ICard~ Cards
         +DrawPile(List~ICard~ cards)
-        %% +DrawCard() ICard
-        %% +Shuffle() void
-        %% +IsEmpty() bool
-        %% +Refill(List~ICard~ newCards) void
     }
 
     class DiscardPile {
 	    +List~ICard~ Cards
         +DiscardPile(ICard initialCard)
-        %% +AddCard(ICard card) void
-        %% +ViewTopCard() ICard
-        %% +PopAllExceptTop() List~ICard~
     }
 
     class IPlayer {
         +string Name
         +int Score
-        %% +IReadOnlyList~ICard~ Hand
-        %% +List~ICard~ Hand
-        %% +AddToHand(ICard card) void
-        %% +RemoveFromHand(ICard card) void
     }
 
     class Player {
         +string Name
         +int Score
-        %% +IReadOnlyList~ICard~ Hand
-        %% +List~ICard~ Hand
         +Player(string name)
-        %% +AddToHand(ICard card) void
-        %% +RemoveFromHand(ICard card) void
     }
     
     class GameController{
@@ -126,8 +103,9 @@ direction TB
         +GetTopDiscardCard() ICard
         +GetPlayers() List~IPlayer~
         +GetPlayerHand(IPlayer player) List~ICard~
-        +IsValidPlay(ICard card) bool
+        +GetValidCards(IPlayer player) List~ICard~
 
+        -IsValidPlay(ICard card) bool
         -Shuffle() void
         -RefillDrawPile() void
         -ApplyCardEffect(ICard card) void
@@ -150,9 +128,6 @@ direction TB
     Card --> CardColor
     Card --> CardValue
 
-    %% ICard ..> IDrawPile
-    %% ICard --> DiscardPile
-
     GameController --> CardColor
     GameController --> GameDirection
     GameController --> IDrawPile
@@ -161,16 +136,9 @@ direction TB
     GameController ..> ICard
 
     Player ..|> IPlayer
-    %% IPlayer o-- ICard
-    %% IDrawPile *-- ICard
-    %% IDrawPile -- IDiscard
-    %% IDiscardPile *-- ICard
     
     IDiscardPile o-- ICard
     DiscardPile ..|> IDiscardPile
-
-    %% DrawPile --> ICard
-    %% DrawPile o-- ICard
 
     IDrawPile o-- ICard
     
