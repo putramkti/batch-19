@@ -74,7 +74,7 @@ direction TB
     }
     
     class GameController{
-        +CardColor CurrentColor
+        -CardColor _currentColor
         -Dictionary~IPlayer, List< ICard>~ _hands
         -List~IPlayer~ _players
         -GameDirection _direction
@@ -100,6 +100,7 @@ direction TB
         +PassTurn(IPlayer player) void
 
         +GetCurrentPlayer() IPlayer
+        +GetCurrentColor() CardColor
         +GetTopDiscardCard() ICard
         +GetPlayers() List~IPlayer~
         +GetPlayerHand(IPlayer player) List~ICard~
