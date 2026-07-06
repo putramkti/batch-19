@@ -15,5 +15,24 @@ public class LibraryDbContext : DbContext
         optionsBuilder.UseSqlite("Data Source=library.db");
     }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Author>()
+            .HasMany(a => a.Books)
+            .WithMany(b => b.Authors);
+
+        modelBuilder.Entity<Book>()
+            .HasMany(b => b.Loans)
+            .WithOne(l => l.Book)
+            .HasForeignKey(l => l.BookId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Member>()
+            .HasMany(m => m.Loans)
+            .WithOne(l => l.Member)
+            .HasForeignKey(l => l.MemberId)
+            .OnDelete(DeleteBehavior.Cascade);
+    }
+
 }
     
