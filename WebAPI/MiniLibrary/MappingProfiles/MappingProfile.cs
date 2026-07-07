@@ -23,8 +23,8 @@ public class MappingProfile : Profile
 
         CreateMap<CategoryCreateDTO, Category>();
 
-         CreateMap<BookCreateDTO, Book>()
-            .ForMember(book => book.Categories, opt => opt.Ignore());
+        CreateMap<BookCreateDTO, Book>()
+           .ForMember(book => book.Categories, opt => opt.Ignore());
 
         CreateMap<MemberCreateDTO, Member>();
 
@@ -33,5 +33,8 @@ public class MappingProfile : Profile
             .ForMember(loan => loan.DueDate, opt => opt.Ignore())
             .ForMember(loan => loan.Book, opt => opt.Ignore())
             .ForMember(loan => loan.Member, opt => opt.Ignore());
+
+        CreateMap<RegisterRequestDTO, ApplicationUser>()
+            .ForMember(user => user.UserName, opt => opt.MapFrom(dto => dto.Email));
     }
 }

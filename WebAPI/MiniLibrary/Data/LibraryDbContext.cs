@@ -4,9 +4,9 @@ using MiniLibrary.Models;
 
 namespace MiniLibrary.Data;
 
-public class LibraryDataContext : IdentityDbContext<ApplicationUser>
+public class LibraryDbContext : IdentityDbContext<ApplicationUser>
 {
-    public LibraryDataContext(DbContextOptions options) : base(options)
+    public LibraryDbContext(DbContextOptions options) : base(options)
     {
     }
 
