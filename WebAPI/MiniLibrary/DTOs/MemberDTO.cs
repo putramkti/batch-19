@@ -8,5 +8,5 @@ public class MemberDTO
 
     public string Name { get; set; } = string.Empty;
 
-    public List<LoanDTO> Loans { get; set; } = new List<LoanDTO>();
+    // public List<LoanDTO> Loans { get; set; } = new List<LoanDTO>();
 }

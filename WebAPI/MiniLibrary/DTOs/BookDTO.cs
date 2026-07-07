@@ -7,5 +7,5 @@ public class BookDTO
     
     public int Stock { get; set; }
 
-    public List<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
+    public List<string> CategoryNames { get; set; } = new List<string>();
 }
