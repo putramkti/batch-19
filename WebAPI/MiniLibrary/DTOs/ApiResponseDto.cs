@@ -4,7 +4,6 @@ public class ApiResponseDto<T>
 {
     public bool IsSuccess { get; set; }
     public T? Data { get; set; }
-    public string? ErrorMessage { get; set; }
     public List<string>? Errors { get; set; }
 
     public static ApiResponseDto<T> Success(T data)
@@ -16,22 +15,11 @@ public class ApiResponseDto<T>
         };
     }
 
-    public static ApiResponseDto<T> Failure(string errorMessage)
-    {
-        return new ApiResponseDto<T>
-        {
-            IsSuccess = false,
-            ErrorMessage = errorMessage
-        };
-    }
+    public static ApiResponseDto<T> Failure(string error) => Failure(new List<string> { error });
 
-    public static ApiResponseDto<T> Failure(List<string> errors)
+    public static ApiResponseDto<T> Failure(List<string> errors) => new()
     {
-        return new ApiResponseDto<T>
-        {
-            IsSuccess = false,
-            ErrorMessage = "Validasi gagal.",
-            Errors = errors
-        };
-    }
+        IsSuccess = false,
+        Errors = errors
+    };
 }

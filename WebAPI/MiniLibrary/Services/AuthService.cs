@@ -14,12 +14,18 @@ namespace MiniLibrary.Services;
 public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
 
-    public AuthService(UserManager<ApplicationUser> userManager, IConfiguration configuration, IMapper mapper)
+    public AuthService(
+        UserManager<ApplicationUser> userManager,
+        SignInManager<ApplicationUser> signInManager,
+        IConfiguration configuration,
+        IMapper mapper)
     {
         _userManager = userManager;
+        _signInManager = signInManager;
         _configuration = configuration;
         _mapper = mapper;
     }
@@ -53,12 +59,18 @@ public class AuthService : IAuthService
             return ApiResponseDto<AuthResponseDTO>.Failure("Email atau password salah.");
         }
 
-        bool isPasswordValid = await _userManager.CheckPasswordAsync(user, loginDto.Password);
-        if (!isPasswordValid)
+        SignInResult signInResult = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, lockoutOnFailure: false);
+        if (!signInResult.Succeeded)
         {
             return ApiResponseDto<AuthResponseDTO>.Failure("Email atau password salah.");
         }
 
+        AuthResponseDTO responseDto = GenerateJwtToken(user);
+        return ApiResponseDto<AuthResponseDTO>.Success(responseDto);
+    }
+
+    private AuthResponseDTO GenerateJwtToken(ApplicationUser user)
+    {
         string jwtKey = _configuration["Jwt:Key"] ?? string.Empty;
         string jwtIssuer = _configuration["Jwt:Issuer"] ?? string.Empty;
         string jwtAudience = _configuration["Jwt:Audience"] ?? string.Empty;
@@ -85,13 +97,11 @@ public class AuthService : IAuthService
 
         string tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
-        AuthResponseDTO responseDto = new AuthResponseDTO
+        return new AuthResponseDTO
         {
             Token = tokenString,
             ExpiresAt = expiresAt,
             FullName = user.FullName
         };
-
-        return ApiResponseDto<AuthResponseDTO>.Success(responseDto);
     }
 }
