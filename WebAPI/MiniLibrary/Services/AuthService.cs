@@ -48,7 +48,7 @@ public class AuthService : IAuthService
             return ApiResponseDto<string>.Failure("Validation failed.",errors);
         }
 
-        return ApiResponseDto<string>.Success(newUser.Id, "Registrasi berhasil.");
+        return ApiResponseDto<string>.Success(newUser.FullName, "Registrasi berhasil.");
     }
 
     public async Task<ApiResponseDto<AuthResponseDTO>> LoginAsync(LoginRequestDTO loginDto)
