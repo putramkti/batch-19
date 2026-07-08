@@ -21,7 +21,7 @@ public class MemberService : IMemberService
     {
         List<Member> members = await _memberRepository.GetAllAsync();
         List<MemberDTO> dtos = _mapper.Map<List<MemberDTO>>(members);
-        return ApiResponseDto<List<MemberDTO>>.Success(dtos);
+        return ApiResponseDto<List<MemberDTO>>.Success(dtos, "Daftar member berhasil diambil.");
     }
 
     public async Task<ApiResponseDto<MemberDTO>> CreateAsync(MemberCreateDTO createDto)
@@ -32,6 +32,6 @@ public class MemberService : IMemberService
         await _memberRepository.SaveChangesAsync();
 
         MemberDTO dto = _mapper.Map<MemberDTO>(newMember);
-        return ApiResponseDto<MemberDTO>.Success(dto);
+        return ApiResponseDto<MemberDTO>.Success(dto, "Member berhasil ditambahkan.");
     }
 }

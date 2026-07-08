@@ -23,7 +23,7 @@ public class BookService : IBookService
     {
         List<Book> books = await _bookRepository.GetAllAsync();
         List<BookDTO> dtos = _mapper.Map<List<BookDTO>>(books);
-        return ApiResponseDto<List<BookDTO>>.Success(dtos);
+        return ApiResponseDto<List<BookDTO>>.Success(dtos, "Daftar buku berhasil diambil.");
     }
 
     public async Task<ApiResponseDto<BookDTO>> GetByIdAsync(int id)
@@ -33,9 +33,9 @@ public class BookService : IBookService
         {
             return ApiResponseDto<BookDTO>.Failure("Buku tidak ditemukan.");
         }
-
+    
         BookDTO dto = _mapper.Map<BookDTO>(book);
-        return ApiResponseDto<BookDTO>.Success(dto);
+        return ApiResponseDto<BookDTO>.Success(dto, "Buku ditemukan.");
     }
 
     public async Task<ApiResponseDto<BookDTO>> CreateAsync(BookCreateDTO createDto)
@@ -53,7 +53,7 @@ public class BookService : IBookService
         await _bookRepository.SaveChangesAsync();
 
         BookDTO dto = _mapper.Map<BookDTO>(newBook);
-        return ApiResponseDto<BookDTO>.Success(dto);
+        return ApiResponseDto<BookDTO>.Success(dto, "Buku berhasil ditambahkan.");
     }
 
     public async Task<ApiResponseDto<BookDTO>> UpdateAsync(int id, BookCreateDTO updateDto)
@@ -82,7 +82,7 @@ public class BookService : IBookService
         await _bookRepository.SaveChangesAsync();
 
         BookDTO dto = _mapper.Map<BookDTO>(existingBook);
-        return ApiResponseDto<BookDTO>.Success(dto);
+        return ApiResponseDto<BookDTO>.Success(dto, "Buku berhasil diperbarui.");
     }
 
     public async Task<ApiResponseDto<string>> DeleteAsync(int id)
@@ -101,6 +101,6 @@ public class BookService : IBookService
         _bookRepository.Remove(book);
         await _bookRepository.SaveChangesAsync();
 
-        return ApiResponseDto<string>.Success("Buku berhasil dihapus.");
+        return ApiResponseDto<string>.Success(book.Title, "Buku berhasil dihapus.");
     }
 }

@@ -45,10 +45,10 @@ public class AuthService : IAuthService
         if (!result.Succeeded)
         {
             List<string> errors = result.Errors.Select(error => error.Description).ToList();
-            return ApiResponseDto<string>.Failure(errors);
+            return ApiResponseDto<string>.Failure("Validation failed.",errors);
         }
 
-        return ApiResponseDto<string>.Success("Registrasi berhasil.");
+        return ApiResponseDto<string>.Success(newUser.Id, "Registrasi berhasil.");
     }
 
     public async Task<ApiResponseDto<AuthResponseDTO>> LoginAsync(LoginRequestDTO loginDto)
@@ -66,7 +66,7 @@ public class AuthService : IAuthService
         }
 
         AuthResponseDTO responseDto = GenerateJwtToken(user);
-        return ApiResponseDto<AuthResponseDTO>.Success(responseDto);
+        return ApiResponseDto<AuthResponseDTO>.Success(responseDto, "Login berhasil.");
     }
 
     private AuthResponseDTO GenerateJwtToken(ApplicationUser user)

@@ -34,7 +34,7 @@ public class LoansController : ControllerBase
         if (!validationResult.IsValid)
         {
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            return BadRequest(ApiResponseDto<LoanDTO>.Failure(errors));
+            return BadRequest(ApiResponseDto<LoanDTO>.Failure("Validation failed.",errors));
         }
 
         ApiResponseDto<LoanDTO> result = await _loanService.BorrowAsync(createDto);

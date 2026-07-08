@@ -34,7 +34,7 @@ public class MembersController : ControllerBase
         if (!validationResult.IsValid)
         {
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            return BadRequest(ApiResponseDto<MemberDTO>.Failure(errors));
+            return BadRequest(ApiResponseDto<MemberDTO>.Failure("Validation failed.",errors));
         }
 
         ApiResponseDto<MemberDTO> result = await _memberService.CreateAsync(createDto);

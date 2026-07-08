@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
         if (!validationResult.IsValid)
         {
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            return BadRequest(ApiResponseDto<string>.Failure(errors));
+            return BadRequest(ApiResponseDto<string>.Failure("Validation failed.", errors));
         }
 
         ApiResponseDto<string> result = await _authService.RegisterAsync(registerDto);
@@ -49,7 +49,7 @@ public class AuthController : ControllerBase
         if (!validationResult.IsValid)
         {
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            return BadRequest(ApiResponseDto<AuthResponseDTO>.Failure(errors));
+            return BadRequest(ApiResponseDto<AuthResponseDTO>.Failure("Validation failed.", errors));
         }
 
         ApiResponseDto<AuthResponseDTO> result = await _authService.LoginAsync(loginDto);

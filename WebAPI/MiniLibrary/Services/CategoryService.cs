@@ -21,7 +21,7 @@ public class CategoryService : ICategoryService
     {
         List<Category> categories = await _categoryRepository.GetAllAsync();
         List<CategoryDTO> dtos = _mapper.Map<List<CategoryDTO>>(categories);
-        return ApiResponseDto<List<CategoryDTO>>.Success(dtos);
+        return ApiResponseDto<List<CategoryDTO>>.Success(dtos,"Daftar kategori berhasil diambil.");
     }
 
     public async Task<ApiResponseDto<CategoryDTO>> CreateAsync(CategoryCreateDTO createDto)
@@ -32,6 +32,6 @@ public class CategoryService : ICategoryService
         await _categoryRepository.SaveChangesAsync();
 
         CategoryDTO dto = _mapper.Map<CategoryDTO>(newCategory);
-        return ApiResponseDto<CategoryDTO>.Success(dto);
+        return ApiResponseDto<CategoryDTO>.Success(dto, "Kategori berhasil ditambahkan.");
     }
 }

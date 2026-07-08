@@ -68,7 +68,7 @@ public class LoanService : ILoanService
         newLoan.Member = member;
 
         LoanDTO dto = _mapper.Map<LoanDTO>(newLoan);
-        return ApiResponseDto<LoanDTO>.Success(dto);
+        return ApiResponseDto<LoanDTO>.Success(dto, "Buku berhasil dipinjam.");
     }
 
     public async Task<ApiResponseDto<LoanDTO>> ReturnAsync(int loanId)
@@ -90,6 +90,6 @@ public class LoanService : ILoanService
         await _loanRepository.SaveChangesAsync();
 
         LoanDTO dto = _mapper.Map<LoanDTO>(loan);
-        return ApiResponseDto<LoanDTO>.Success(dto);
+        return ApiResponseDto<LoanDTO>.Success(dto, "Buku berhasil dikembalikan.");
     }
 }

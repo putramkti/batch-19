@@ -35,7 +35,7 @@ public class BooksController : ControllerBase
         ApiResponseDto<BookDTO> result = await _bookService.GetByIdAsync(id);
         if (!result.IsSuccess)
         {
-            return BadRequest(result);
+            return NotFound(result);
         }
 
         return Ok(result);
@@ -48,7 +48,7 @@ public class BooksController : ControllerBase
         if (!validationResult.IsValid)
         {
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            return BadRequest(ApiResponseDto<BookDTO>.Failure(errors));
+            return BadRequest(ApiResponseDto<BookDTO>.Failure("Validation failed.", errors));
         }
 
         ApiResponseDto<BookDTO> result = await _bookService.CreateAsync(createDto);
@@ -67,7 +67,7 @@ public class BooksController : ControllerBase
         if (!validationResult.IsValid)
         {
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            return BadRequest(ApiResponseDto<BookDTO>.Failure(errors));
+            return BadRequest(ApiResponseDto<BookDTO>.Failure("Validation failed.", errors));
         }
 
         ApiResponseDto<BookDTO> result = await _bookService.UpdateAsync(id, updateDto);

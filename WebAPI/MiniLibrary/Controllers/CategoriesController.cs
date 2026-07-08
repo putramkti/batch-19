@@ -35,7 +35,7 @@ public class CategoriesController : ControllerBase
         if (!validationResult.IsValid)
         {
             List<string> errors = validationResult.Errors.Select(error => error.ErrorMessage).ToList();
-            return BadRequest(ApiResponseDto<CategoryDTO>.Failure(errors));
+            return BadRequest(ApiResponseDto<CategoryDTO>.Failure("Validation failed.", errors));
         }
 
         ApiResponseDto<CategoryDTO> result = await _categoryService.CreateAsync(createDto);
