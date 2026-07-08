@@ -13,6 +13,7 @@ using MiniLibrary.Repositories.Interfaces;
 using MiniLibrary.Services;
 using MiniLibrary.Services.Interfaces;
 using MiniLibrary.Validators;
+using MiniLibrary.DTOs;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -53,9 +54,14 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
-builder.Services.AddValidatorsFromAssemblyContaining<BookCreateDTOValidator>();
+builder.Services.AddScoped<IValidator<BookCreateDTO>, BookCreateDTOValidator>();
+builder.Services.AddScoped<IValidator<CategoryCreateDTO>, CategoryCreateDTOValidator>();
+builder.Services.AddScoped<IValidator<MemberCreateDTO>, MemberCreateDTOValidator>();
+builder.Services.AddScoped<IValidator<LoanCreateDTO>, LoanCreateDTOValidator>();
+builder.Services.AddScoped<IValidator<RegisterRequestDTO>, RegisterRequestDTOValidator>();
+builder.Services.AddScoped<IValidator<LoginRequestDTO>, LoginRequestDTOValidator>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IBookRepository, BookRepository>();
@@ -72,23 +78,23 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer",
         BearerFormat = "JWT",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header
+        In = ParameterLocation.Header
     });
 
-    options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            new OpenApiSecurityScheme
             {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                Reference = new OpenApiReference
                 {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Type = ReferenceType.SecurityScheme,
                     Id = "Bearer"
                 }
             },
