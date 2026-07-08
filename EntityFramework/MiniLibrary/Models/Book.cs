@@ -6,7 +6,6 @@ public class Book
 {
     public int Id { get; set; }
 
-    [Required, MaxLength(200)]
     public string Title { get; set; } = string.Empty;
 
     public int Stock { get; set; }

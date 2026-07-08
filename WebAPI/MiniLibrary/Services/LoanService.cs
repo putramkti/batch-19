@@ -29,7 +29,7 @@ public class LoanService : ILoanService
     {
         List<Loan> loans = await _loanRepository.GetActiveLoansAsync();
         List<LoanDTO> dtos = _mapper.Map<List<LoanDTO>>(loans);
-        return ApiResponseDto<List<LoanDTO>>.Success(dtos);
+        return ApiResponseDto<List<LoanDTO>>.Success(dtos, "Berhasil mengambil data peminjaman aktif.");
     }
 
     public async Task<ApiResponseDto<LoanDTO>> BorrowAsync(LoanCreateDTO createDto)
